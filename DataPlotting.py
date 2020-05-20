@@ -18,7 +18,7 @@ from mpl_toolkits.mplot3d import Axes3D
 TRAIN_TEST_SEED = random.randint(0, 9999)
 
 # fetch Data
-dataset = pd.read_csv('/Users/atharvak/Desktop/Projects/time-finder-master/data.csv')
+dataset = pd.read_csv('data.csv')
 x1 = list(dataset['start'])
 x2= list(dataset['end'])
 y = list(dataset['val'])
