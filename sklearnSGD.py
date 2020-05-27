@@ -107,3 +107,5 @@ for row in range(0, len(gradient_predictions)):
 # print average percent error
 print("\n{:19s} {:5f}".format("Avg % Error:", np.average(gradient_errors)))
 
+print("Confusion/Covariance Matrix")
+print(np.corrcoef(gradient.predict(X_test), y_test))
