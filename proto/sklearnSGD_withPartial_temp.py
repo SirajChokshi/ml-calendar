@@ -20,7 +20,7 @@ from sklearn.model_selection import train_test_split
 TRAIN_TEST_SEED = random.randint(0, 9999)
 
 # fetch Data
-dataset = pd.read_csv('/Users/atharvak/Desktop/Projects/time-finder/proto/data.csv')
+dataset = pd.read_csv('data.csv')
 x1 = list(dataset['start'])
 x2= list(dataset['end'])
 y = list(dataset['val'])
