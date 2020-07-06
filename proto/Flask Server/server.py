@@ -20,6 +20,8 @@ db = firebase.database()
 
 auth = firebase.auth()
 
+user = None
+
 email = input("Please enter your email\n")
 password = input("Please enter your password\n")
 
@@ -34,7 +36,8 @@ def main():
 @app.route("/createnewauth/<string:username>", methods=['POST'])
 def create_new_auth(username):
     # authenticate user
-    auth.create_user_with_email_and_password(email, password)
+    user = auth.create_user_with_email_and_password(email, password)
+    print(user)
     return "{} has been authenticated".format(username)
 
 @app.route("/signinauth/<string:username>", methods=['POST'])
@@ -65,7 +68,20 @@ def post_info(username):
 @app.route("/createuser/<string:username>", methods=['POST'])
 def create_user(username):
     # will do something to post a new data point into the SGD regressor
-    db.child("users").push({"user" : username})
+    user = auth.sign_in_with_email_and_password(email, password)
+    print(user['idToken'])
+
+    print("\n\n", auth.get_account_info(user['idToken']), "\n")
+
+
+    if user is None:
+        return "Error: User Not Autheticated"
+    else:
+        data = {
+            "name": username,
+            "desc": "description"
+        }
+        db.child("users").child(username).set(data, user['idToken'])
     return "{} user information has been updated".format(username)
 
 # FIREBASE STORAGE -------------
