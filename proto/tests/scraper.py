@@ -10,7 +10,7 @@ from google.auth.transport.requests import Request
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
-START_TIME = datetime.datetime(2020, 3, 8, 0, 0, 0, 0).isoformat('T') + "Z"
+START_TIME = datetime.datetime(2020, 1, 27, 0, 0, 0, 0).isoformat('T') + "Z"
 END_TIME = datetime.datetime(2020, 3, 16, 0, 0, 0, 0).isoformat('T') + "Z"
 
 class Day:
@@ -92,8 +92,11 @@ def get_events(service, calendar_id, start, end, time_zone = "America/New_York")
         for event in events:
             # start = event['start'].get('dateTime', event['start'].get('date'))
             # end = event['end'].get('dateTime', event['end'].get('date'))
-            start = dtparse(event['start']['dateTime'])
-            end = dtparse(event['end']['dateTime'])
+            try:
+                start = dtparse(event['start']['dateTime'])
+                end = dtparse(event['end']['dateTime'])
+            except:
+                print(event['start'])
             curr = {
                 'start': start,
                 'end': end,
@@ -168,13 +171,11 @@ def get_calendar(service, start_time, end_time):
 
     return Calendar(week_list)
 
-def main():
+def scrape():
     service = get_api_service()
     cal = get_calendar(service, START_TIME, END_TIME)
-
-    for week in cal.weeks:
-        print(week)
+    return cal
 
 
 if __name__ == '__main__':
-    main()
+    scrape()
