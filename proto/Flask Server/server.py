@@ -1,6 +1,19 @@
 import pyrebase
+import os
 from flask import *
 from flask import Flask
+from flask import requests
+
+from sklearn import preprocessing
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import SGDRegressor
+from sklearn import preprocessing
+from sklearn.preprocessing import PolynomialFeatures 
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+from numpy import random
+from sklearn.model_selection import train_test_split
 
 config = {
   "apiKey" : "AIzaSyABxv8e7n4Wns-0rXDVGDI3V6vCjSFq8VU",
@@ -11,6 +24,10 @@ config = {
   "messagingSenderId" : "1095759067582",
   "appId" : "1:1095759067582:web:8c98359c27d1fde93f21ef"
 }
+
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+sample_data = "sample"
 
 firebase = pyrebase.initialize_app(config)
 
@@ -82,6 +99,35 @@ def get_url(username):
     url = storage.child(username).get_url(False)
     return str(url)
 
+# upload data, PATCH 
+# - we go into the user's folder and pull down their existing model (which is compressed)
+# - then we decompress it and partial fit the new data and get a new model
+# - then we compress it again and send it 
+
+@app.route("/upload_data/<string:username>", methods=['PATCH'])
+def upload_data(username):
+    # getting the URL
+    url = storage.child(username).get_url(False)
+    return str(url)
+
+
+
+
+
+# ----------------
+
+# need code to update the current regressor with the new data and partial fit
+
+@app.route("/receive_data/<string:username>", methods=['GET'])
+def receive_data(username):
+    # getting the URL
+    f = open('{}.txt'.format(username), 'w')
+
+    url = storage.child(username).get_url(False)
+    return str(url)
+
+
+# need code to get the data 
 
 
 if __name__ == '__main__':
