@@ -51,6 +51,8 @@ def update_model(username):
     newY = np.array(Y)
     model.partial_fit(newX, newY)
 
+    # need to figure out how to send data
+
     with open('{}.pkl'.format(username), 'wb') as fid:
         pickle.dump(model, fid)
 
