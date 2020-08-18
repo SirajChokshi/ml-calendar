@@ -27,8 +27,7 @@ def main():
 @app.route("/create_user/<string:username>", methods=['POST'])
 def create_user(username):
     gradient = SGDRegressor()
-    f = open("{}.pkl".format(username), 'w')
-    pickle.dump(gradient, f)
+    pickle.dump(gradient, open("{}.pkl".format(username), "wb"))
     return "file created for user: {}".format(username)
 
 @app.route("/load_model/<string:username>", methods=['GET'])
