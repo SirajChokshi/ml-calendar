@@ -24,6 +24,12 @@ def main():
 
 # ----------------
 
+@app.route("/create_temp_file", methods=['POST'])
+def create_temp_file():
+    f = open("data.csv", 'w')
+    f.write("track ID,tempo,danceability,time signature,valence,energy,target")
+    return "temp data file created"
+
 @app.route("/create_user/<string:username>", methods=['POST'])
 def create_user(username):
     gradient = SGDRegressor()
