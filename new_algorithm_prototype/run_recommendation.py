@@ -11,7 +11,7 @@ def run():
     test_user_prof.add_new_item(test_prof_2)
     test_user_prof.add_new_item(test_prof_3)
 
-    test_user_prof.get_optimal_vectors()
+    test_user_prof.get_vectors()
 
     test_user_prof.get_optimal_free_times([0.25,0.5, 7.75, 8.5,9.5])
 
