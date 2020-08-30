@@ -106,7 +106,6 @@ module.exports = class UserProfile {
         }
 
         const vectors = getVectors(this.timeDurationMap), optimalEvents = [];
-        let count = 0;
 
         for (const vector of vectors) {
 
@@ -118,9 +117,8 @@ module.exports = class UserProfile {
             if (!blockedOffTimes.includes(time) && !blockedOffTimes.includes(time + duration)) {
 
                 optimalEvents.push(vector);
-                count++;
 
-                if (count >= 5) {
+                if (optimalEvents.length >= 5) {
                     return optimalEvents;
                 }
             }
