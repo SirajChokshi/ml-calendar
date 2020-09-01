@@ -142,6 +142,27 @@ module.exports = class UserProfile {
     }
 
     toString() {
-        return [...this.timeDurationMap].join('\n')
+        const arr = [...this.timeDurationMap], out = [];
+
+        for (const entry of arr) {
+            out.push(entry.join('~'));
+        }
+
+        return out.join('|');
     }
+
+    static fromString(s) {
+        const layer = s.split('|'), out = new Map();
+
+        for (const entry of layer) {
+            const keyPair = entry.split('~');
+            out.set(keyPair[0], Number(keyPair[1]));
+        }
+
+        const profile = new UserProfile([]);
+        profile.timeDurationMap = out;
+
+        return profile;
+    }
+
 }

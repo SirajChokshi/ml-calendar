@@ -11,3 +11,7 @@ user.addProfile(item2)
 user.addProfile(item3)
 
 console.log(user.getOptimalFreeTimes([0.25,0.5, 7.75, 8.5,9.5]))
+
+const str = user.toString();
+const fromStrTest = UserProfile.fromString(str)
+console.log(fromStrTest.getOptimalFreeTimes([0.25,0.5, 7.75, 8.5,9.5]))
